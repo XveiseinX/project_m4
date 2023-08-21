@@ -7,6 +7,8 @@ class Advertisement(models.Model):
 
         db_table = 'advertisements'
 
+    def __str__(self):
+        return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"
     # Товар
     # строковое поле для небольших размеров
     # 'заголовок' - verbose_name - название поля извне
