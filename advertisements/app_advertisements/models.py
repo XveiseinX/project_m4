@@ -3,6 +3,10 @@ from django.db import models
 
 class Advertisement(models.Model):
 
+    class Meta:
+
+        db_table = 'advertisements'
+
     # Товар
     # строковое поле для небольших размеров
     # 'заголовок' - verbose_name - название поля извне
