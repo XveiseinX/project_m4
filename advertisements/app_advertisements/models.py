@@ -1,15 +1,27 @@
 from django.db import models
 from django.contrib import admin
+from django.urls import reverse
 from django.utils.html import format_html
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
+
 
 class Advertisement(models.Model):
 
-    class Meta:
-
-        db_table = 'advertisements'
-
-    def __str__(self):
-        return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"
+    user = models.ForeignKey(
+        User,
+        verbose_name='пользователь',
+        on_delete=models.CASCADE
+    )
+    
+    image = models.ImageField(
+        'изображение',
+        upload_to = 'advertisements/',
+        blank=True,
+    )
+ 
     # Товар
     # строковое поле для небольших размеров
     # 'заголовок' - verbose_name - название поля извне
@@ -52,6 +64,19 @@ class Advertisement(models.Model):
             return format_html('<span style="color:blue; font-weight:bold;">Сегодня в {} </span>', updated_date)
         
         return self.updated_at.strftime("%d.%m.%Y в %H:%M:%S")
+        
+    @admin.display(description='Изображение')
+    def image_tag(self):
+        if self.image:
+            return format_html('<img src="{}" style="max-width:100px; max-height:100px"/>', self.image.url)
+        else:
+            return format_html('<img src="/static/img/adv.png" style="max-width:100px; max-height:100px"/>')
+    
+    def __str__(self):
+        return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"   
+    
+    class Meta:
+        db_table = 'advertisements'
     
     # Имя продавца + контакты
 
