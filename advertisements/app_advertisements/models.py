@@ -25,7 +25,7 @@ class Advertisement(models.Model):
     # Товар
     # строковое поле для небольших размеров
     # 'заголовок' - verbose_name - название поля извне
-    title = models.CharField('Заголовок', max_length=128)
+    title = models.CharField('Заголовок', max_length=64)
 
     # Описание товара/информация о товаре
     # большое текстовое поле
