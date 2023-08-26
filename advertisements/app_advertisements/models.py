@@ -75,6 +75,9 @@ class Advertisement(models.Model):
     def __str__(self):
         return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"   
     
+    def get_absolute_url(self):
+        return reverse('adv-detail', kwargs={'pk': self.pk})
+    
     class Meta:
         db_table = 'advertisements'
     
